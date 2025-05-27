@@ -1,7 +1,910 @@
 <!DOCTYPE html>
-<html>
-<body>
-<h1>Hello World</h1>
-<p>Testing Deep Research for now</p>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infographic: Navigating Your Financial Transition Abroad - Quebec Residents (AI Q&A + Translation)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Visualization & Content Choices:
+        - Content presented using styled HTML lists, tables, and text blocks.
+        - AI Q&A Box: Allows users to ask questions about infographic content, answered by Gemini based on provided text.
+        - Translation: French/English pre-translated. Other languages via Gemini on-the-fly for visible section.
+        - General: Unicode characters for icons. No Chart.js used. HTML/CSS for diagrams. Gemini API for AI Q&A and translation.
+        - CONFIRMING NO SVG/Mermaid. All diagrams/flows via HTML/CSS.
+    -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #CAF0F8;
+        }
+        .section-title {
+            color: #0077B6;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+        }
+        .card-title {
+            color: #0096C7;
+            font-weight: 600;
+        }
+        .stat-number {
+            color: #0077B6;
+            font-weight: 700;
+        }
+        .list-icon {
+            color: #00B4D8;
+            margin-right: 0.5rem;
+        }
+        .table-header {
+            background-color: #ADE8F4;
+            color: #0077B6;
+            font-weight: 600;
+        }
+        .process-step {
+            border-left: 3px solid #48CAE4;
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        .process-step::before {
+            content: '';
+            position: absolute;
+            left: -0.625rem;
+            top: 0.375rem;
+            width: 1rem;
+            height: 1rem;
+            background-color: #48CAE4;
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+        .ai-qna-box {
+            background-color: #E0F7FA; /* Lightest cyan */
+            border: 1px solid #4DD0E1; /* Mid cyan border */
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border-radius: 0.5rem;
+        }
+        .ai-qna-box textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            border: 1px solid #B2EBF2; /* Lighter cyan border */
+            min-height: 80px;
+            margin-bottom: 0.75rem;
+            color: #00796B; /* Dark teal for text */
+        }
+        .ai-qna-box button {
+            background-color: #00B4D8;
+            color: white;
+            padding: 0.625rem 1.25rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+        .ai-qna-box button:hover {
+            background-color: #0096C7;
+        }
+        .ai-response-area {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #FFFFFF;
+            border: 1px solid #B2EBF2;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            color: #004D40; /* Darker teal */
+            min-height: 50px;
+        }
+
+        .loading-indicator, .ai-disclaimer-global {
+            display: none;
+            text-align: center;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0.5rem;
+        }
+        .loading-indicator {
+            color: #0077B6;
+            background-color: #E0F7FA;
+        }
+        .ai-disclaimer-global {
+            background-color: #FFF9C4;
+            border: 1px solid #FFF176;
+            color: #795548;
+            font-size: 0.8rem;
+        }
+        #languageSelector {
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem;
+            border: 1px solid #90E0EF; /* Light palette blue */
+            background-color: #FFFFFF;
+            color: #0077B6; /* Darkest blue */
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div id="loadingIndicatorGlobal" class="loading-indicator">
+        <span data-translate-key="loading_text">✨ Processing... Please wait.</span>
+    </div>
+    <div id="aiDisclaimerGlobal" class="ai-disclaimer-global container mx-auto mt-4 max-w-3xl">
+        <strong data-translate-key="ai_disclaimer_strong">Disclaimer:</strong>
+        <span data-translate-key="ai_disclaimer_text_full">AI-generated content is for informational purposes only and not professional advice. Always consult qualified experts for your specific situation.</span>
+    </div>
+
+    <div class="container mx-auto px-4 py-8 md:py-12">
+
+        <header class="text-center mb-12 md:mb-16">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-3xl md:text-4xl font-bold section-title" data-translate-key="infographic_main_title">Navigating Your Financial Transition Abroad</h1>
+                <div class="lang-selector">
+                    <select id="languageSelector" class="text-sm">
+                        {/* Options will be populated by JS */}
+                    </select>
+                </div>
+            </div>
+            <p class="text-lg md:text-xl text-slate-700 max-w-3xl mx-auto" data-translate-key="infographic_subtitle">
+                A visual guide for Quebec residents planning to work internationally, covering key tax and financial planning aspects.
+            </p>
+        </header>
+
+        <section id="residency" class="card">
+            <h2 class="text-2xl md:text-3xl card-title mb-6 text-center" data-translate-key="residency_section_title">🏠 Establishing Your Tax Residency</h2>
+            <p class="text-slate-600 mb-6 text-center" data-translate-key="residency_intro_text">To become a non-resident for tax purposes, you must sever residential ties with Canada & Quebec. This is crucial as it dictates how your income is taxed.</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-xl font-semibold text-sky-700 mb-3" data-translate-key="residency_cra_title">Key Federal (CRA) Criteria</h3>
+                    <ul class="space-y-2 text-slate-700">
+                        <li><span class="list-icon">❗</span><strong data-translate-key="residency_cra_sig_ties_strong">Significant Ties:</strong> <span data-translate-key="residency_cra_sig_ties_text">Dwelling place, spouse/dependants in Canada.</span></li>
+                        <li><span class="list-icon">🔗</span><strong data-translate-key="residency_cra_sec_ties_strong">Secondary Ties:</strong> <span data-translate-key="residency_cra_sec_ties_text">Personal property, bank accounts, driver's licence, health card, social ties.</span></li>
+                        <li><span class="list-icon">✈️</span><strong data-translate-key="residency_cra_intent_strong">Intent:</strong> <span data-translate-key="residency_cra_intent_text">Must demonstrate intent to permanently depart and establish residency elsewhere.</span></li>
+                        <li><span class="list-icon">🗓️</span><strong data-translate-key="residency_cra_183day_strong">183-Day Rule is a Misconception:</strong> <span data-translate-key="residency_cra_183day_text">Not automatic if significant ties remain.</span></li>
+                    </ul>
+                    <p class="text-sm text-slate-500 mt-3" data-translate-key="residency_cra_nr73_note">Filing Form NR73 with CRA for an opinion is advisable but not mandatory.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-sky-700 mb-3" data-translate-key="residency_rq_title">Key Quebec (Revenu Québec) Criteria</h3>
+                     <ul class="space-y-2 text-slate-700">
+                        <li><span class="list-icon">🔗</span><span data-translate-key="residency_rq_aligns">Aligns generally with federal rules.</span></li>
+                        <li><span class="list-icon">🚶</span><span data-translate-key="residency_rq_focus">Focus on ties to Quebec, visit frequency, and anticipated return.</span></li>
+                        <li><span class="list-icon">📄</span><span data-translate-key="residency_rq_final_return">Indicate status change on final Quebec tax return.</span></li>
+                        <li><span class="list-icon">📢</span><span data-translate-key="residency_rq_notify">Notify RAMQ (health) & SAAQ (driver's/vehicle).</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-6 p-4 bg-sky-50 rounded-lg">
+                <h4 class="text-lg font-semibold text-sky-800 mb-2" data-translate-key="residency_actions_title">Actions to Sever Ties:</h4>
+                <ul class="list-disc list-inside text-slate-700 space-y-1 text-sm">
+                    <li data-translate-key="residency_action_dwelling">Sell or establish arm's length lease for your dwelling.</li>
+                    <li data-translate-key="residency_action_family">Ensure spouse/dependants also leave.</li>
+                    <li data-translate-key="residency_action_property">Dispose of or store personal property appropriately.</li>
+                    <li data-translate-key="residency_action_banks">Close unnecessary Canadian bank accounts; change address on others.</li>
+                    <li data-translate-key="residency_action_licenses">Surrender Quebec driver's licence/health card.</li>
+                    <li data-translate-key="residency_action_mail">Change all mailing addresses to foreign address.</li>
+                    <li data-translate-key="residency_action_new_country">Establish clear ties in the new country (accommodation, banking, local ID).</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="departure-tax" class="card">
+            <h2 class="text-2xl md:text-3xl card-title mb-6 text-center" data-translate-key="deptax_section_title">💸 The Departure Tax Explained</h2>
+            <p class="text-slate-600 mb-6 text-center" data-translate-key="deptax_intro_text">Upon ceasing Canadian residency, you're deemed to have sold certain assets at Fair Market Value (FMV), potentially triggering capital gains. A key concept is <strong>Deemed Disposition</strong>.</p>
+            
+            <div class="grid md:grid-cols-2 gap-6 my-6">
+                <div class="text-center p-4 bg-sky-100 rounded-lg">
+                    <p class="text-slate-700 text-sm" data-translate-key="deptax_fed_defer_label">Federal Deferral Security Threshold (CRA):</p>
+                    <p class="stat-number text-3xl md:text-4xl mt-1">$16,500</p>
+                    <p class="text-xs text-slate-500" data-translate-key="deptax_fed_defer_desc">Security needed if deferred federal departure tax exceeds this.</p>
+                </div>
+                <div class="text-center p-4 bg-sky-100 rounded-lg">
+                    <p class="text-slate-700 text-sm" data-translate-key="deptax_qc_defer_label">Quebec Deferral Security Threshold (RQ):</p>
+                    <p class="stat-number text-3xl md:text-4xl mt-1">$13,777.50</p>
+                    <p class="text-xs text-slate-500" data-translate-key="deptax_qc_defer_desc">Security needed if deferred Quebec departure tax exceeds this.</p>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-semibold text-sky-700 mb-4" data-translate-key="deptax_asset_treatment_title">Asset Treatment:</h3>
+            <div class="overflow-x-auto">
+                <table class="min-w-full">
+                    <thead>
+                        <tr>
+                            <th class="table-header py-2 px-4 text-left text-sm" data-translate-key="deptax_table_asset_type">Asset Type</th>
+                            <th class="table-header py-2 px-4 text-left text-sm" data-translate-key="deptax_table_subject_dd">Subject to Deemed Disposition?</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white">
+                        <tr class="border-b border-slate-200"><td class="py-3 px-4 text-sm text-slate-700" data-translate-key="deptax_asset_condo">Quebec Condo (Canadian Real Property)</td><td class="py-3 px-4 text-sm text-slate-700" data-translate-key="deptax_asset_condo_dd">No (Taxed on actual sale as TCP)</td></tr>
+                        <tr class="border-b border-slate-200 bg-sky-50"><td class="py-3 px-4 text-sm text-slate-700" data-translate-key="deptax_asset_rrsp">RRSP / RRIF</td><td class="py-3 px-4 text-sm text-slate-700" data-translate-key="deptax_asset_rrsp_dd">No</td></tr>
+                        <tr class="border-b border-slate-200"><td class="py-3 px-4 text-sm text-slate-700" data-translate-key="deptax_asset_tfsa">TFSA</td><td class="py-3 px-4 text-sm text-slate-700" data-translate-key="deptax_asset_tfsa_dd">No</td></tr>
+                        <tr class="border-b border-slate-200 bg-sky-50"><td class="py-3 px-4 text-sm text-slate-700" data-translate-key="deptax_asset_nonreg_shares">Non-Registered Shares (Publicly Traded)</td><td class="py-3 px-4 text-sm text-slate-700" data-translate-key="deptax_asset_nonreg_shares_dd">Yes (Generally)</td></tr>
+                        <tr class="border-b border-slate-200"><td class="py-3 px-4 text-sm text-slate-700" data-translate-key="deptax_asset_pup">Personal Use Property > $10k FMV</td><td class="py-3 px-4 text-sm text-slate-700" data-translate-key="deptax_asset_pup_dd">Yes</td></tr>
+                         <tr class="border-b border-slate-200 bg-sky-50"><td class="py-3 px-4 text-sm text-slate-700" data-translate-key="deptax_asset_cash">Cash / Bank Deposits</td><td class="py-3 px-4 text-sm text-slate-700" data-translate-key="deptax_asset_cash_dd">No</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="text-sm text-slate-500 mt-4"><strong data-translate-key="deptax_reporting_strong">Reporting:</strong> <span data-translate-key="deptax_reporting_text">File T1243 (CRA) & TP-1033.2.A-V (RQ). If total property FMV > $25k, also file T1161 (CRA) & TP-785.2.5-V (RQ).</span></p>
+        </section>
+
+        <section id="condo" class="card">
+            <h2 class="text-2xl md:text-3xl card-title mb-6 text-center" data-translate-key="condo_section_title">🔑 Decisions for Your Quebec Condo</h2>
+            <p class="text-slate-600 mb-8 text-center" data-translate-key="condo_intro_text">A major decision with significant tax implications. Compare your options:</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="p-4 bg-sky-50 rounded-lg border border-sky-200">
+                    <h4 class="font-semibold text-sky-700 mb-2" data-translate-key="condo_sell_before_title">Sell Before Departure</h4>
+                    <p class="text-xs text-slate-600 mb-1"><strong data-translate-key="condo_pre_label">PRE:</strong> <span data-translate-key="condo_sell_before_pre">Full if qualified.</span></p>
+                    <p class="text-xs text-slate-600 mb-1"><strong data-translate-key="condo_tax_label">Tax:</strong> <span data-translate-key="condo_sell_before_tax">Potentially $0.</span></p>
+                    <p class="text-xs text-slate-600"><strong data-translate-key="condo_pros_label">Pros:</strong> <span data-translate-key="condo_sell_before_pros">Simplest, max PRE.</span></p>
+                    <p class="text-xs text-slate-500"><strong data-translate-key="condo_cons_label">Cons:</strong> <span data-translate-key="condo_sell_before_cons">Market timing, temp housing.</span></p>
+                </div>
+                <div class="p-4 bg-sky-50 rounded-lg border border-sky-200">
+                    <h4 class="font-semibold text-sky-700 mb-2" data-translate-key="condo_sell_after_title">Sell After Departure</h4>
+                    <p class="text-xs text-slate-600 mb-1"><strong data-translate-key="condo_pre_label">PRE:</strong> <span data-translate-key="condo_sell_after_pre">Limited to resident years.</span></p>
+                    <p class="text-xs text-slate-600 mb-1"><strong data-translate-key="condo_tax_label">Tax:</strong> <span data-translate-key="condo_sell_after_tax">Gain taxable.</span></p>
+                    <p class="text-xs text-slate-600"><strong data-translate-key="condo_pros_label">Pros:</strong> <span data-translate-key="condo_sell_after_pros">Wait for market (risky).</span></p>
+                    <p class="text-xs text-slate-500"><strong data-translate-key="condo_cons_label">Cons:</strong> <span data-translate-key="condo_sell_after_cons">Complex (T2062), withholding.</span></p>
+                </div>
+                <div class="p-4 bg-sky-50 rounded-lg border border-sky-200">
+                    <h4 class="font-semibold text-sky-700 mb-2" data-translate-key="condo_rent_election_title">Rent (with 45(2) Election)</h4>
+                    <p class="text-xs text-slate-600 mb-1"><strong data-translate-key="condo_pre_label">PRE:</strong> <span data-translate-key="condo_rent_election_pre">Extended up to 4 yrs (if Cdn res).</span></p>
+                    <p class="text-xs text-slate-600 mb-1"><strong data-translate-key="condo_tax_label">Tax:</strong> <span data-translate-key="condo_rent_election_tax">Gain deferred.</span></p>
+                    <p class="text-xs text-slate-600"><strong data-translate-key="condo_pros_label">Pros:</strong> <span data-translate-key="condo_rent_election_pros">Income, keeps property.</span></p>
+                    <p class="text-xs text-slate-500"><strong data-translate-key="condo_cons_label">Cons:</strong> <span data-translate-key="condo_rent_election_cons">Landlord duties, eventual non-res sale.</span></p>
+                </div>
+                <div class="p-4 bg-sky-50 rounded-lg border border-sky-200">
+                    <h4 class="font-semibold text-sky-700 mb-2" data-translate-key="condo_rent_no_election_title">Rent (no 45(2) Election)</h4>
+                    <p class="text-xs text-slate-600 mb-1"><strong data-translate-key="condo_pre_label">PRE:</strong> <span data-translate-key="condo_rent_no_election_pre">Up to change of use.</span></p>
+                    <p class="text-xs text-slate-600 mb-1"><strong data-translate-key="condo_tax_label">Tax:</strong> <span data-translate-key="condo_rent_no_election_tax">Gain after change taxable.</span></p>
+                    <p class="text-xs text-slate-600"><strong data-translate-key="condo_pros_label">Pros:</strong> <span data-translate-key="condo_rent_no_election_pros">Income.</span></p>
+                    <p class="text-xs text-slate-500"><strong data-translate-key="condo_cons_label">Cons:</strong> <span data-translate-key="condo_rent_no_election_cons">Partial PRE loss, landlord duties.</span></p>
+                </div>
+            </div>
+            <p class="text-sm text-slate-500 mt-6"><strong data-translate-key="condo_hbp_repayment_strong">HBP Repayment:</strong> <span data-translate-key="condo_hbp_repayment_text">Due earlier of filing departure return or 60 days after ceasing residency.</span></p>
+        </section>
+
+        <section id="investments" class="card">
+            <h2 class="text-2xl md:text-3xl card-title mb-6 text-center" data-translate-key="investments_section_title">💰 Managing Your Investments Abroad</h2>
+            <p class="text-slate-600 mb-6 text-center" data-translate-key="investments_intro_text">Rules for TFSAs, RRSPs, and non-registered accounts change significantly for non-residents.</p>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold text-sky-700 mb-3" data-translate-key="investments_tfsa_title">TFSA</h3>
+                    <ul class="space-y-2 text-slate-700 text-sm">
+                        <li data-translate-key="investments_tfsa_item1"><span class="list-icon">✅</span> Can be held as non-resident.</li>
+                        <li data-translate-key="investments_tfsa_item2"><span class="list-icon">🚫</span> **No contributions** while non-resident (1%/month penalty).</li>
+                        <li data-translate-key="investments_tfsa_item3"><span class="list-icon">🇨🇦</span> Withdrawals tax-free in Canada.</li>
+                        <li data-translate-key="investments_tfsa_item4"><span class="list-icon">🌍</span> May be taxable in new country.</li>
+                        <li data-translate-key="investments_tfsa_item5"><span class="list-icon">📈</span> No new contribution room accumulates.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-sky-700 mb-3" data-translate-key="investments_rrsp_title">RRSP</h3>
+                     <ul class="space-y-2 text-slate-700 text-sm">
+                        <li data-translate-key="investments_rrsp_item1"><span class="list-icon">✅</span> Can be held as non-resident.</li>
+                        <li data-translate-key="investments_rrsp_item2"><span class="list-icon">💸</span> Withdrawals subject to 25% federal withholding (or treaty rate).</li>
+                        <li data-translate-key="investments_rrsp_item3"><span class="list-icon">📄</span> Section 217 election may reduce tax.</li>
+                        <li data-translate-key="investments_rrsp_item4"><span class="list-icon">🌍</span> May be taxable in new country (check for tax credits).</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-6 p-4 bg-sky-50 rounded-lg">
+                <h4 class="text-lg font-semibold text-sky-800 mb-2" data-translate-key="investments_nonreg_title">Non-Registered Investments:</h4>
+                <ul class="list-disc list-inside text-slate-700 space-y-1 text-sm">
+                    <li data-translate-key="investments_nonreg_item1">Subject to Departure Tax (deemed disposition) unless TCP.</li>
+                    <li data-translate-key="investments_nonreg_item2">TCP (e.g., Cdn real estate) taxed on actual sale as non-resident.</li>
+                    <li data-translate-key="investments_nonreg_item3">Post-departure Cdn interest: often exempt from withholding.</li>
+                    <li data-translate-key="investments_nonreg_item4">Post-departure Cdn dividends: 25% withholding (or treaty rate).</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="departure-plan" class="card">
+            <h2 class="text-2xl md:text-3xl card-title mb-6 text-center" data-translate-key="plan_section_title">🗓️ Phased Departure Plan</h2>
+            <p class="text-slate-600 mb-8 text-center" data-translate-key="plan_intro_text">A systematic approach to notifications and filings is crucial.</p>
+            <div id="phasedDepartureContainer" class="space-y-6">
+                <div class="process-step">
+                    <h4 class="font-semibold text-sky-700 mb-1" data-translate-key="plan_phase1_title">Phase 1: Early Planning (6-12+ Months Before)</h4>
+                    <ul class="list-disc list-inside text-sm text-slate-600 space-y-1 pl-4 phase-tasks">
+                        <li data-translate-key="plan_phase1_task1">Consult CPA with international tax expertise.</li>
+                        <li data-translate-key="plan_phase1_task2">Decide on condo strategy (sell/rent).</li>
+                        <li data-translate-key="plan_phase1_task3">Review investments with advisor.</li>
+                        <li data-translate-key="plan_phase1_task4">Estimate departure tax; plan HBP repayment.</li>
+                    </ul>
+                </div>
+                <div class="process-step">
+                    <h4 class="font-semibold text-sky-700 mb-1" data-translate-key="plan_phase2_title">Phase 2: Pre-Departure (1-3 Months Before)</h4>
+                    <ul class="list-disc list-inside text-sm text-slate-600 space-y-1 pl-4 phase-tasks">
+                        <li data-translate-key="plan_phase2_task1">Close condo sale if selling. If renting, arrange agent, NR6, 45(2) election.</li>
+                        <li data-translate-key="plan_phase2_task2">Systematically sever ties (notify institutions, RAMQ, SAAQ, change addresses).</li>
+                        <li data-translate-key="plan_phase2_task3">Gather documents for departure tax returns.</li>
+                    </ul>
+                </div>
+                <div class="process-step">
+                    <h4 class="font-semibold text-sky-700 mb-1" data-translate-key="plan_phase3_title">Phase 3: Immediate Departure Period</h4>
+                    <ul class="list-disc list-inside text-sm text-slate-600 space-y-1 pl-4 phase-tasks">
+                        <li data-translate-key="plan_phase3_task1">Finalize closure of unneeded Cdn bank accounts.</li>
+                        <li data-translate-key="plan_phase3_task2">Confirm exact date of departure for tax.</li>
+                        <li data-translate-key="plan_phase3_task3">Ensure HBP repaid (within 60 days of ceasing residency).</li>
+                    </ul>
+                </div>
+                <div class="process-step">
+                    <h4 class="font-semibold text-sky-700 mb-1" data-translate-key="plan_phase4_title">Phase 4: Post-Departure Compliance</h4>
+                    <ul class="list-disc list-inside text-sm text-slate-600 space-y-1 pl-4 phase-tasks">
+                        <li data-translate-key="plan_phase4_task1">File NR73 with CRA (optional).</li>
+                        <li data-translate-key="plan_phase4_task2">If condo sold as non-resident, file T2062/TP-1097-V within 10 days.</li>
+                        <li data-translate-key="plan_phase4_task3">File final T1 & TP1 departure returns by deadline (incl. T1243, T1161, etc.).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+         <section id="recommendations" class="card">
+            <h2 class="text-2xl md:text-3xl card-title mb-6 text-center" data-translate-key="recomm_section_title">💡 Key Recommendations</h2>
+            <ul class="space-y-3 text-slate-700">
+                <li><span class="list-icon">🏆</span><strong data-translate-key="recomm_item1_strong">Prioritize Selling Condo Before Departure:</strong> <span data-translate-key="recomm_item1_text">Maximizes PRE, simplifies taxes.</span></li>
+                <li><span class="list-icon">💰</span><strong data-translate-key="recomm_item2_strong">Maximize TFSA Contributions Before Leaving:</strong> <span data-translate-key="recomm_item2_text">No contributions while non-resident.</span></li>
+                <li><span class="list-icon">📜</span><strong data-translate-key="recomm_item3_strong">Understand RRSP Withdrawal Implications:</strong> <span data-translate-key="recomm_item3_text">Check tax treaty rates.</span></li>
+                <li><span class="list-icon">📊</span><strong data-translate-key="recomm_item4_strong">Address Departure Tax Systematically:</strong> <span data-translate-key="recomm_item4_text">Identify assets, calculate gains, file forms.</span></li>
+                <li><span class="list-icon">✂️</span><strong data-translate-key="recomm_item5_strong">Sever Ties Thoroughly & Document Everything:</strong> <span data-translate-key="recomm_item5_text">Crucial for non-resident status.</span></li>
+                <li><span class="list-icon">📬</span><strong data-translate-key="recomm_item6_strong">File All Notifications & Tax Returns Accurately and On Time.</strong></li>
+            </ul>
+            <div class="mt-6 text-center p-4 bg-sky-100 rounded-lg">
+                <h4 class="text-lg font-semibold text-sky-800 mb-2" data-translate-key="recomm_next_steps_title">Next Steps:</h4>
+                <p class="text-slate-700 text-sm" data-translate-key="recomm_next_steps_text">Consult a CPA with international tax expertise. Seek tax advice in your destination country. Consider legal advice for property matters.</p>
+            </div>
+        </section>
+
+        <section id="ai-qna" class="ai-qna-box card">
+            <h2 class="text-xl md:text-2xl card-title mb-4 text-center" data-translate-key="qna_title">🤖 Ask AI About This Infographic</h2>
+            <p class="text-sm text-slate-600 mb-4 text-center" data-translate-key="qna_intro">Have a question about the topics covered above? Ask the AI for a general explanation based on the infographic's content.</p>
+            <textarea id="userQuestion" class="w-full p-2 border border-sky-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500" rows="3" placeholder="Type your question here..." data-translate-key="qna_placeholder"
+            ></textarea>
+            <div class="text-center">
+                <button id="askAIButton" class="ai-qna-box button" data-translate-key="qna_submit_button">Submit Question</button>
+            </div>
+            <div id="aiResponseArea" class="ai-response-area mt-4" style="display: none;"></div>
+        </section>
+
+
+        <footer class="text-center mt-12 md:mt-16 py-8 border-t border-sky-200">
+            <p class="text-sm text-slate-600" data-translate-key="footer_line1">Infographic based on "Navigating Your Financial Transition Abroad" report. For informational purposes only.</p>
+            <p class="text-xs text-slate-500 mt-1">&copy; <span id="currentYear"></span> <span data-translate-key="footer_line2">Quebec Expat Financial Planning. Always consult with qualified professionals.</span></p>
+        </footer>
+
+    </div>
+<script>
+    const translations = {
+        en: {
+            "loading_text": "✨ Processing... Please wait.",
+            "ai_disclaimer_strong": "Disclaimer:",
+            "ai_disclaimer_text_full": "AI-generated content is for informational purposes only and not professional advice. Always consult qualified experts for your specific situation.",
+            "infographic_main_title": "Navigating Your Financial Transition Abroad",
+            "infographic_subtitle": "A visual guide for Quebec residents planning to work internationally, covering key tax and financial planning aspects.",
+            "residency_section_title": "🏠 Establishing Your Tax Residency",
+            "residency_intro_text": "To become a non-resident for tax purposes, you must sever residential ties with Canada & Quebec. This is crucial as it dictates how your income is taxed.",
+            "residency_cra_title": "Key Federal (CRA) Criteria",
+            "residency_cra_sig_ties_strong": "Significant Ties:",
+            "residency_cra_sig_ties_text": "Dwelling place, spouse/dependants in Canada.",
+            "residency_cra_sec_ties_strong": "Secondary Ties:",
+            "residency_cra_sec_ties_text": "Personal property, bank accounts, driver's licence, health card, social ties.",
+            "residency_cra_intent_strong": "Intent:",
+            "residency_cra_intent_text": "Must demonstrate intent to permanently depart and establish residency elsewhere.",
+            "residency_cra_183day_strong": "183-Day Rule is a Misconception:",
+            "residency_cra_183day_text": "Not automatic if significant ties remain.",
+            "residency_cra_nr73_note": "Filing Form NR73 with CRA for an opinion is advisable but not mandatory.",
+            "residency_rq_title": "Key Quebec (Revenu Québec) Criteria",
+            "residency_rq_aligns": "Aligns generally with federal rules.",
+            "residency_rq_focus": "Focus on ties to Quebec, visit frequency, and anticipated return.",
+            "residency_rq_final_return": "Indicate status change on final Quebec tax return.",
+            "residency_rq_notify": "Notify RAMQ (health) & SAAQ (driver's/vehicle).",
+            "residency_actions_title": "Actions to Sever Ties:",
+            "residency_action_dwelling": "Sell or establish arm's length lease for your dwelling.",
+            "residency_action_family": "Ensure spouse/dependants also leave.",
+            "residency_action_property": "Dispose of or store personal property appropriately.",
+            "residency_action_banks": "Close unnecessary Canadian bank accounts; change address on others.",
+            "residency_action_licenses": "Surrender Quebec driver's licence/health card.",
+            "residency_action_mail": "Change all mailing addresses to foreign address.",
+            "residency_action_new_country": "Establish clear ties in the new country (accommodation, banking, local ID).",
+            "deptax_section_title": "💸 The Departure Tax Explained",
+            "deptax_intro_text": "Upon ceasing Canadian residency, you're deemed to have sold certain assets at Fair Market Value (FMV), potentially triggering capital gains. A key concept is <strong>Deemed Disposition</strong>.",
+            "deptax_fed_defer_label": "Federal Deferral Security Threshold (CRA):",
+            "deptax_fed_defer_desc": "Security needed if deferred federal departure tax exceeds this.",
+            "deptax_qc_defer_label": "Quebec Deferral Security Threshold (RQ):",
+            "deptax_qc_defer_desc": "Security needed if deferred Quebec departure tax exceeds this.",
+            "deptax_asset_treatment_title": "Asset Treatment:",
+            "deptax_table_asset_type": "Asset Type",
+            "deptax_table_subject_dd": "Subject to Deemed Disposition?",
+            "deptax_asset_condo": "Quebec Condo (Canadian Real Property)",
+            "deptax_asset_condo_dd": "No (Taxed on actual sale as TCP)",
+            "deptax_asset_rrsp": "RRSP / RRIF",
+            "deptax_asset_rrsp_dd": "No",
+            "deptax_asset_tfsa": "TFSA",
+            "deptax_asset_tfsa_dd": "No",
+            "deptax_asset_nonreg_shares": "Non-Registered Shares (Publicly Traded)",
+            "deptax_asset_nonreg_shares_dd": "Yes (Generally)",
+            "deptax_asset_pup": "Personal Use Property > $10k FMV",
+            "deptax_asset_pup_dd": "Yes",
+            "deptax_asset_cash": "Cash / Bank Deposits",
+            "deptax_asset_cash_dd": "No",
+            "deptax_reporting_strong": "Reporting:",
+            "deptax_reporting_text": "File T1243 (CRA) & TP-1033.2.A-V (RQ). If total property FMV > $25k, also file T1161 (CRA) & TP-785.2.5-V (RQ).",
+            "condo_section_title": "🔑 Decisions for Your Quebec Condo",
+            "condo_intro_text": "A major decision with significant tax implications. Compare your options:",
+            "condo_sell_before_title": "Sell Before Departure",
+            "condo_pre_label": "PRE:",
+            "condo_sell_before_pre": "Full if qualified.",
+            "condo_tax_label": "Tax:",
+            "condo_sell_before_tax": "Potentially $0.",
+            "condo_pros_label": "Pros:",
+            "condo_sell_before_pros": "Simplest, max PRE.",
+            "condo_cons_label": "Cons:",
+            "condo_sell_before_cons": "Market timing, temp housing.",
+            "condo_sell_after_title": "Sell After Departure",
+            "condo_sell_after_pre": "Limited to resident years.",
+            "condo_sell_after_tax": "Gain taxable.",
+            "condo_sell_after_pros": "Wait for market (risky).",
+            "condo_sell_after_cons": "Complex (T2062), withholding.",
+            "condo_rent_election_title": "Rent (with 45(2) Election)",
+            "condo_rent_election_pre": "Extended up to 4 yrs (if Cdn res).",
+            "condo_rent_election_tax": "Gain deferred.",
+            "condo_rent_election_pros": "Income, keeps property.",
+            "condo_rent_election_cons": "Landlord duties, eventual non-res sale.",
+            "condo_rent_no_election_title": "Rent (no 45(2) Election)",
+            "condo_rent_no_election_pre": "Up to change of use.",
+            "condo_rent_no_election_tax": "Gain after change taxable.",
+            "condo_rent_no_election_pros": "Income.",
+            "condo_rent_no_election_cons": "Partial PRE loss, landlord duties.",
+            "condo_hbp_repayment_strong": "HBP Repayment:",
+            "condo_hbp_repayment_text": "Due earlier of filing departure return or 60 days after ceasing residency.",
+            "investments_section_title": "💰 Managing Your Investments Abroad",
+            "investments_intro_text": "Rules for TFSAs, RRSPs, and non-registered accounts change significantly for non-residents.",
+            "investments_tfsa_title": "TFSA",
+            "investments_tfsa_item1": "Can be held as non-resident.",
+            "investments_tfsa_item2": "**No contributions** while non-resident (1%/month penalty).",
+            "investments_tfsa_item3": "Withdrawals tax-free in Canada.",
+            "investments_tfsa_item4": "May be taxable in new country.",
+            "investments_tfsa_item5": "No new contribution room accumulates.",
+            "investments_rrsp_title": "RRSP",
+            "investments_rrsp_item1": "Can be held as non-resident.",
+            "investments_rrsp_item2": "Withdrawals subject to 25% federal withholding (or treaty rate).",
+            "investments_rrsp_item3": "Section 217 election may reduce tax.",
+            "investments_rrsp_item4": "May be taxable in new country (check for tax credits).",
+            "investments_nonreg_title": "Non-Registered Investments:",
+            "investments_nonreg_item1": "Subject to Departure Tax (deemed disposition) unless TCP.",
+            "investments_nonreg_item2": "TCP (e.g., Cdn real estate) taxed on actual sale as non-resident.",
+            "investments_nonreg_item3": "Post-departure Cdn interest: often exempt from withholding.",
+            "investments_nonreg_item4": "Post-departure Cdn dividends: 25% withholding (or treaty rate).",
+            "plan_section_title": "🗓️ Phased Departure Plan",
+            "plan_intro_text": "A systematic approach to notifications and filings is crucial.",
+            "plan_phase1_title": "Phase 1: Early Planning (6-12+ Months Before)",
+            "plan_phase1_task1": "Consult CPA with international tax expertise.",
+            "plan_phase1_task2": "Decide on condo strategy (sell/rent).",
+            "plan_phase1_task3": "Review investments with advisor.",
+            "plan_phase1_task4": "Estimate departure tax; plan HBP repayment.",
+            "plan_phase2_title": "Phase 2: Pre-Departure (1-3 Months Before)",
+            "plan_phase2_task1": "Close condo sale if selling. If renting, arrange agent, NR6, 45(2) election.",
+            "plan_phase2_task2": "Systematically sever ties (notify institutions, RAMQ, SAAQ, change addresses).",
+            "plan_phase2_task3": "Gather documents for departure tax returns.",
+            "plan_phase3_title": "Phase 3: Immediate Departure Period",
+            "plan_phase3_task1": "Finalize closure of unneeded Cdn bank accounts.",
+            "plan_phase3_task2": "Confirm exact date of departure for tax.",
+            "plan_phase3_task3": "Ensure HBP repaid (within 60 days of ceasing residency).",
+            "plan_phase4_title": "Phase 4: Post-Departure Compliance",
+            "plan_phase4_task1": "File NR73 with CRA (optional).",
+            "plan_phase4_task2": "If condo sold as non-resident, file T2062/TP-1097-V within 10 days.",
+            "plan_phase4_task3": "File final T1 & TP1 departure returns by deadline (incl. T1243, T1161, etc.).",
+            "recomm_section_title": "💡 Key Recommendations",
+            "recomm_item1_strong": "Prioritize Selling Condo Before Departure:",
+            "recomm_item1_text": "Maximizes PRE, simplifies taxes.",
+            "recomm_item2_strong": "Maximize TFSA Contributions Before Leaving:",
+            "recomm_item2_text": "No contributions while non-resident.",
+            "recomm_item3_strong": "Understand RRSP Withdrawal Implications:",
+            "recomm_item3_text": "Check tax treaty rates.",
+            "recomm_item4_strong": "Address Departure Tax Systematically:",
+            "recomm_item4_text": "Identify assets, calculate gains, file forms.",
+            "recomm_item5_strong": "Sever Ties Thoroughly & Document Everything:",
+            "recomm_item5_text": "Crucial for non-resident status.",
+            "recomm_item6_strong": "File All Notifications & Tax Returns Accurately and On Time.",
+            "recomm_next_steps_title": "Next Steps:",
+            "recomm_next_steps_text": "Consult a CPA with international tax expertise. Seek tax advice in your destination country. Consider legal advice for property matters.",
+            "qna_title": "🤖 Ask AI About This Infographic",
+            "qna_intro": "Have a question about the topics covered above? Ask the AI for a general explanation based on the infographic's content.",
+            "qna_placeholder": "Type your question here...",
+            "qna_submit_button": "Submit Question",
+            "qna_ai_prompt_base": "Based *only* on the information available in the 'Quebec Expat Tax Planning Scenarios' infographic (which covers topics like tax residency, departure tax, condo decisions, investments, and departure planning for Quebec residents moving abroad), answer the following question: \"{user_question}\". Do not use external knowledge or provide financial/legal advice. Keep the answer concise and directly related to the infographic's content.",
+            "qna_gemini_error_unexpected_response": "Sorry, I couldn't retrieve a specific answer from the infographic content for that question. Please try rephrasing or asking about a different topic covered in the guide.",
+            "qna_gemini_error_connect": "Sorry, I'm having trouble connecting to the AI service right now. Please try again later.",
+            "footer_line1": "Infographic based on \"Navigating Your Financial Transition Abroad\" report. For informational purposes only.",
+            "footer_line2": "Quebec Expat Financial Planning. Always consult with qualified professionals."
+        },
+        fr: {
+            "loading_text": "✨ Traitement en cours... Veuillez patienter.",
+            "ai_disclaimer_strong": "Avis de non-responsabilité :",
+            "ai_disclaimer_text_full": "Le contenu généré par l'IA est fourni à titre informatif uniquement et ne constitue pas un conseil professionnel. Consultez toujours des experts qualifiés pour votre situation spécifique.",
+            "infographic_main_title": "Naviguer dans votre transition financière à l'étranger",
+            "infographic_subtitle": "Guide visuel pour les résidents du Québec planifiant de travailler à l'international, couvrant les aspects clés de la planification fiscale et financière.",
+            "residency_section_title": "🏠 Établissement de votre résidence fiscale",
+            "residency_intro_text": "Pour devenir non-résident à des fins fiscales, vous devez rompre vos liens de résidence avec le Canada et le Québec. Ceci est crucial car cela dicte comment vos revenus sont imposés.",
+            "residency_cra_title": "Critères clés de l'ARC (fédéral)",
+            "residency_cra_sig_ties_strong": "Liens importants :",
+            "residency_cra_sig_ties_text": "Lieu de résidence, conjoint ou conjoint de fait, personnes à charge au Canada.",
+            "residency_cra_sec_ties_strong": "Liens secondaires :",
+            "residency_cra_sec_ties_text": "Biens personnels, comptes bancaires, permis de conduire, carte d'assurance maladie, liens sociaux.",
+            "residency_cra_intent_strong": "Intention :",
+            "residency_cra_intent_text": "Doit démontrer l'intention de quitter le pays de façon permanente et d'établir sa résidence ailleurs.",
+            "residency_cra_183day_strong": "Règle des 183 jours (idée fausse) :",
+            "residency_cra_183day_text": "Pas automatique si des liens importants subsistent.",
+            "residency_cra_nr73_note": "Soumettre le formulaire NR73 à l'ARC pour un avis est conseillé mais non obligatoire.",
+            "residency_rq_title": "Critères clés de Revenu Québec",
+            "residency_rq_aligns": "S'aligne généralement sur les règles fédérales.",
+            "residency_rq_focus": "Accent sur les liens avec le Québec, la fréquence des visites et le retour anticipé.",
+            "residency_rq_final_return": "Indiquer le changement de statut dans la déclaration de revenus finale du Québec.",
+            "residency_rq_notify": "Aviser la RAMQ (santé) et la SAAQ (permis/véhicule).",
+            "residency_actions_title": "Actions pour rompre les liens :",
+            "residency_action_dwelling": "Vendre ou établir un bail sans lien de dépendance pour votre logement.",
+            "residency_action_family": "S'assurer que le conjoint et les personnes à charge partent également.",
+            "residency_action_property": "Disposer des biens personnels ou les entreposer de manière appropriée.",
+            "residency_action_banks": "Fermer les comptes bancaires canadiens inutiles; changer l'adresse des autres.",
+            "residency_action_licenses": "Rendre le permis de conduire et la carte d'assurance maladie du Québec.",
+            "residency_action_mail": "Changer toutes les adresses postales pour l'adresse à l'étranger.",
+            "residency_action_new_country": "Établir des liens clairs dans le nouveau pays (logement, banque, identité locale).",
+            "deptax_section_title": "💸 L'impôt de départ expliqué",
+            "deptax_intro_text": "En cessant d'être résident canadien, vous êtes réputé avoir vendu certains actifs à leur juste valeur marchande (JVM), ce qui peut déclencher des gains en capital. Un concept clé est la <strong>Disposition Réputée</strong>.",
+            "deptax_fed_defer_label": "Seuil de garantie pour report fédéral (ARC) :",
+            "deptax_fed_defer_desc": "Garantie requise si l'impôt de départ fédéral reporté excède ce montant.",
+            "deptax_qc_defer_label": "Seuil de garantie pour report québécois (RQ) :",
+            "deptax_qc_defer_desc": "Garantie requise si l'impôt de départ québécois reporté excède ce montant.",
+            "deptax_asset_treatment_title": "Traitement des actifs :",
+            "deptax_table_asset_type": "Type d'actif",
+            "deptax_table_subject_dd": "Assujetti à la disposition réputée ?",
+            "deptax_asset_condo": "Condo au Québec (Bien immobilier canadien)",
+            "deptax_asset_condo_dd": "Non (Imposé lors de la vente réelle comme BCI)",
+            "deptax_asset_rrsp": "REER / FERR",
+            "deptax_asset_rrsp_dd": "Non",
+            "deptax_asset_tfsa": "CELI",
+            "deptax_asset_tfsa_dd": "Non",
+            "deptax_asset_nonreg_shares": "Actions (non enregistrées, cotées en bourse)",
+            "deptax_asset_nonreg_shares_dd": "Oui (Généralement)",
+            "deptax_asset_pup": "Biens à usage personnel > 10k $ JVM",
+            "deptax_asset_pup_dd": "Oui",
+            "deptax_asset_cash": "Argent comptant / Dépôts bancaires",
+            "deptax_asset_cash_dd": "Non",
+            "deptax_reporting_strong": "Déclaration :",
+            "deptax_reporting_text": "Produire T1243 (ARC) & TP-1033.2.A-V (RQ). Si JVM totale des biens > 25k $, produire aussi T1161 (ARC) & TP-785.2.5-V (RQ).",
+            "condo_section_title": "🔑 Décisions pour votre condo au Québec",
+            "condo_intro_text": "Une décision majeure avec des implications fiscales importantes. Comparez vos options :",
+            "condo_sell_before_title": "Vendre avant le départ",
+            "condo_pre_label": "ERP :",
+            "condo_sell_before_pre": "Complète si qualifié.",
+            "condo_tax_label": "Impôt :",
+            "condo_sell_before_tax": "Potentiellement 0 $.",
+            "condo_pros_label": "Avantages :",
+            "condo_sell_before_pros": "Plus simple, ERP max.",
+            "condo_cons_label": "Inconvénients :",
+            "condo_sell_before_cons": "Timing marché, logement temp.",
+            "condo_sell_after_title": "Vendre après le départ",
+            "condo_sell_after_pre": "Limitée aux années de résidence.",
+            "condo_sell_after_tax": "Gain imposable.",
+            "condo_sell_after_pros": "Attendre marché (risqué).",
+            "condo_sell_after_cons": "Complexe (T2062), retenue.",
+            "condo_rent_election_title": "Louer (avec choix 45(2))",
+            "condo_rent_election_pre": "Prolongée jusqu'à 4 ans (si rés. Cdn).",
+            "condo_rent_election_tax": "Gain reporté.",
+            "condo_rent_election_pros": "Revenu, conserve propriété.",
+            "condo_rent_election_cons": "Tâches locateur, vente non-rés. future.",
+            "condo_rent_no_election_title": "Louer (sans choix 45(2))",
+            "condo_rent_no_election_pre": "Jusqu'au changement d'usage.",
+            "condo_rent_no_election_tax": "Gain après changement imposable.",
+            "condo_rent_no_election_pros": "Revenu.",
+            "condo_rent_no_election_cons": "Perte partielle ERP, tâches locateur.",
+            "condo_hbp_repayment_strong": "Remboursement RAP :",
+            "condo_hbp_repayment_text": "Dû au plus tôt : production déclaration de départ ou 60 jours après cessation de résidence.",
+            "investments_section_title": "💰 Gestion de vos placements à l'étranger",
+            "investments_intro_text": "Les règles pour les CELI, REER et comptes non enregistrés changent considérablement pour les non-résidents.",
+            "investments_tfsa_title": "CELI",
+            "investments_tfsa_item1": "Peut être conservé en tant que non-résident.",
+            "investments_tfsa_item2": "**Aucune cotisation** pendant la non-résidence (pénalité 1%/mois).",
+            "investments_tfsa_item3": "Retraits non imposables au Canada.",
+            "investments_tfsa_item4": "Peut être imposable dans le nouveau pays.",
+            "investments_tfsa_item5": "Aucun nouveau droit de cotisation ne s'accumule.",
+            "investments_rrsp_title": "REER",
+            "investments_rrsp_item1": "Peut être conservé en tant que non-résident.",
+            "investments_rrsp_item2": "Retraits soumis à une retenue fédérale de 25 % (ou taux conventionnel).",
+            "investments_rrsp_item3": "Le choix prévu à l'article 217 peut réduire l'impôt.",
+            "investments_rrsp_item4": "Peut être imposable dans le nouveau pays (vérifier crédits d'impôt).",
+            "investments_nonreg_title": "Placements non enregistrés :",
+            "investments_nonreg_item1": "Soumis à l'impôt de départ (disposition réputée) sauf si BCI.",
+            "investments_nonreg_item2": "BCI (ex: immobilier Cdn) imposé lors de la vente réelle par un non-résident.",
+            "investments_nonreg_item3": "Intérêts canadiens post-départ : souvent exempts de retenue.",
+            "investments_nonreg_item4": "Dividendes canadiens post-départ : retenue de 25 % (ou taux conventionnel).",
+            "plan_section_title": "🗓️ Plan de départ par étapes",
+            "plan_intro_text": "Une approche systématique des notifications et des déclarations est cruciale.",
+            "plan_phase1_title": "Phase 1 : Planification initiale (6-12+ mois avant)",
+            "plan_phase1_task1": "Consulter un CPA spécialisé en fiscalité internationale.",
+            "plan_phase1_task2": "Décider de la stratégie pour le condo (vendre/louer).",
+            "plan_phase1_task3": "Réviser les placements avec un conseiller.",
+            "plan_phase1_task4": "Estimer l'impôt de départ; planifier remboursement RAP.",
+            "plan_phase2_title": "Phase 2 : Préparatifs avant départ (1-3 mois avant)",
+            "plan_phase2_task1": "Conclure vente condo si applicable. Si location, agent, NR6, choix 45(2).",
+            "plan_phase2_task2": "Rompre liens : aviser institutions, RAMQ, SAAQ, changer adresses.",
+            "plan_phase2_task3": "Rassembler documents pour déclarations de départ.",
+            "plan_phase3_title": "Phase 3 : Période de départ immédiat",
+            "plan_phase3_task1": "Finaliser fermeture comptes bancaires Cdn inutiles.",
+            "plan_phase3_task2": "Confirmer date exacte de départ pour impôts.",
+            "plan_phase3_task3": "S'assurer que le RAP est remboursé (dans les 60 jours).",
+            "plan_phase4_title": "Phase 4 : Conformité post-départ",
+            "plan_phase4_task1": "Produire NR73 à l'ARC (facultatif).",
+            "plan_phase4_task2": "Si condo vendu comme non-résident, produire T2062/TP-1097-V en 10 jours.",
+            "plan_phase4_task3": "Produire déclarations T1 & TP1 finales avant échéance (incl. T1243, T1161, etc.).",
+            "recomm_section_title": "💡 Recommandations clés",
+            "recomm_item1_strong": "Prioriser la vente du condo avant le départ :",
+            "recomm_item1_text": "Maximise l'ERP, simplifie les impôts.",
+            "recomm_item2_strong": "Maximiser les cotisations CELI avant de partir :",
+            "recomm_item2_text": "Aucune cotisation pendant la non-résidence.",
+            "recomm_item3_strong": "Comprendre les implications des retraits REER :",
+            "recomm_item3_text": "Vérifier les taux des conventions fiscales.",
+            "recomm_item4_strong": "Traiter l'impôt de départ systématiquement :",
+            "recomm_item4_text": "Identifier actifs, calculer gains, produire formulaires.",
+            "recomm_item5_strong": "Rompre les liens minutieusement et tout documenter :",
+            "recomm_item5_text": "Crucial pour le statut de non-résident.",
+            "recomm_item6_strong": "Produire toutes notifications et déclarations avec exactitude et à temps.",
+            "recomm_next_steps_title": "Prochaines étapes :",
+            "recomm_next_steps_text": "Consulter un CPA spécialisé en fiscalité internationale. Obtenir des conseils fiscaux dans le pays de destination. Envisager des conseils juridiques pour les questions immobilières.",
+            "qna_title": "🤖 Poser une question à l'IA sur cette infographie",
+            "qna_intro": "Vous avez une question sur les sujets abordés ci-dessus ? Demandez à l'IA une explication générale basée sur le contenu de l'infographie.",
+            "qna_placeholder": "Tapez votre question ici...",
+            "qna_submit_button": "Soumettre la question",
+            "qna_ai_prompt_base": "En vous basant *uniquement* sur les informations disponibles dans l'infographie 'Scénarios de planification fiscale pour expatriés du Québec' (qui couvre des sujets tels que la résidence fiscale, l'impôt de départ, les décisions relatives au condo, les placements et la planification du départ pour les résidents du Québec déménageant à l'étranger), répondez à la question suivante : \"{user_question}\". N'utilisez pas de connaissances externes et ne fournissez pas de conseils financiers/juridiques. Gardez la réponse concise et directement liée au contenu de l'infographie.",
+            "qna_gemini_error_unexpected_response": "Désolé, je n'ai pas pu extraire de réponse spécifique du contenu de l'infographie pour cette question. Veuillez essayer de reformuler ou de poser une question sur un autre sujet traité dans le guide.",
+            "qna_gemini_error_connect": "Désolé, je rencontre des difficultés pour me connecter au service d'IA pour le moment. Veuillez réessayer plus tard.",
+            "footer_line1": "Infographie basée sur le rapport \"Naviguer dans votre transition financière à l'étranger\". À titre informatif uniquement.",
+            "footer_line2": "Planification financière pour expatriés du Québec. Consultez toujours des professionnels qualifiés."
+        }
+    };
+    let currentLanguage = 'fr';
+    let currentActiveSectionId = 'home';
+    let isTranslatingOnDemand = false;
+
+    const otherLanguageOptions = [
+        { code: 'en', name: 'English' }, // English is now also part of "other" for on-the-fly if not explicitly selected
+        { code: 'es', name: 'Español (Spanish)' },
+        { code: 'de', name: 'Deutsch (German)' },
+        { code: 'it', name: 'Italiano (Italian)' },
+        { code: 'pt', name: 'Português (Portuguese)' },
+        { code: 'nl', name: 'Nederlands (Dutch)' },
+        { code: 'zh-CN', name: '简体中文 (Chinese Simplified)' },
+        { code: 'ja', name: '日本語 (Japanese)' },
+        { code: 'ko', name: '한국어 (Korean)' },
+        { code: 'ar', name: 'العربية (Arabic)' },
+        { code: 'ru', name: 'Русский (Russian)' }
+    ];
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        const loadingIndicator = document.getElementById('loadingIndicatorGlobal');
+        const aiDisclaimer = document.getElementById('aiDisclaimerGlobal');
+        const languageSelector = document.getElementById('languageSelector');
+        const contentSections = document.querySelectorAll('.content-section');
+
+        function populateLanguageSelector() {
+            languageSelector.innerHTML = '';
+            
+            const frOption = document.createElement('option');
+            frOption.value = 'fr';
+            frOption.textContent = 'Français';
+            languageSelector.appendChild(frOption);
+
+            const enOption = document.createElement('option');
+            enOption.value = 'en';
+            enOption.textContent = 'English';
+            languageSelector.appendChild(enOption);
+            
+            const separator = document.createElement('option');
+            separator.disabled = true;
+            separator.textContent = '──────────';
+            languageSelector.appendChild(separator);
+
+            otherLanguageOptions.forEach(lang => {
+                if (lang.code !== 'en' && lang.code !== 'fr') { // Avoid duplicates
+                    const option = document.createElement('option');
+                    option.value = lang.code;
+                    option.textContent = lang.name;
+                    languageSelector.appendChild(option);
+                }
+            });
+            languageSelector.value = currentLanguage;
+        }
+
+        function updateTextContent(langCode) {
+            document.querySelectorAll('[data-translate-key]').forEach(el => {
+                const key = el.dataset.translateKey;
+                if (translations[langCode] && translations[langCode][key]) {
+                    el.innerHTML = translations[langCode][key];
+                } else if (translations.en[key]) {
+                    el.innerHTML = translations.en[key];
+                } else {
+                    // Keep original if no key found, or log error
+                }
+            });
+        }
+
+        async function translateElementTextWithGemini(element, targetLangCode, sourceLangCode = 'en') {
+            if (isTranslatingOnDemand) return; // Prevent re-entry if already translating
+            isTranslatingOnDemand = true;
+
+            const originalTextKey = element.dataset.translateKey;
+            let textToTranslate = translations[sourceLangCode]?.[originalTextKey] || element.innerHTML;
+            
+            if (!textToTranslate.trim() || textToTranslate.includes('<input') || textToTranslate.includes('<button')) {
+                 if (translations[sourceLangCode]?.[originalTextKey]) {
+                    element.innerHTML = translations[sourceLangCode]?.[originalTextKey];
+                }
+                isTranslatingOnDemand = false;
+                return;
+            }
+
+            const prompt = `Translate the following ${sourceLangCode === 'en' ? 'English' : 'French'} text to ${otherLanguageOptions.find(l=>l.code === targetLangCode)?.name || targetLangCode}. Respond with only the translation, no extra commentary or quotation marks: "${textToTranslate}"`;
+            
+            try {
+                const translatedText = await callGeminiApi(prompt, true); // Pass true for isTranslationCall
+                if (translatedText && !translatedText.startsWith("Error:")) {
+                    element.innerHTML = translatedText;
+                } else {
+                     if (translations[sourceLangCode]?.[originalTextKey]) {
+                         element.innerHTML = translations[sourceLangCode]?.[originalTextKey];
+                     }
+                }
+            } catch (e) {
+                 if (translations[sourceLangCode]?.[originalTextKey]) {
+                    element.innerHTML = translations[sourceLangCode]?.[originalTextKey];
+                 }
+            } finally {
+                isTranslatingOnDemand = false;
+            }
+        }
+        
+        async function translateSectionOnDemand(sectionId, targetLangCode) {
+            const section = document.getElementById(sectionId);
+            if (!section) return;
+
+            const loadingTextKey = "loading_text"; // Generic loading key
+            loadingIndicator.innerHTML = `<span data-translate-key="${loadingTextKey}">${translations[currentLanguage]?.[loadingTextKey] || translations.en[loadingTextKey]}</span>`;
+            if (targetLangCode !== 'en' && targetLangCode !== 'fr' && loadingIndicator.querySelector('span')) {
+                 await translateElementTextWithGemini(loadingIndicator.querySelector('span'), targetLangCode, currentLanguage === 'fr' ? 'fr' : 'en');
+            }
+            loadingIndicator.style.display = 'block';
+            aiDisclaimer.style.display = 'none';
+
+            const elementsToTranslate = section.querySelectorAll('[data-translate-key]');
+            const translationPromises = [];
+
+            elementsToTranslate.forEach(el => {
+                const key = el.dataset.translateKey;
+                if (translations.en[key]) {
+                    el.innerHTML = translations.en[key];
+                }
+                translationPromises.push(translateElementTextWithGemini(el, targetLangCode, 'en'));
+            });
+            
+            await Promise.all(translationPromises);
+            loadingIndicator.style.display = 'none';
+        }
+        
+        languageSelector.addEventListener('change', async (event) => {
+            const selectedValue = event.target.value;
+            const isPretranslated = selectedValue === 'en' || selectedValue === 'fr';
+
+            if (isPretranslated) {
+                currentLanguage = selectedValue;
+                updateTextContent(currentLanguage);
+            } else { // Other language selected for on-the-fly translation
+                currentLanguage = 'en'; // Set base to English for translation source
+                updateTextContent('en'); // Reset to English base first
+                
+                const activeSection = document.querySelector('.content-section.active') || document.getElementById('home');
+                if (activeSection) {
+                    currentActiveSectionId = activeSection.id;
+                    await translateSectionOnDemand(currentActiveSectionId, selectedValue);
+                }
+            }
+        });
+
+        contentSections.forEach(section => {
+            // Basic way to detect when a section becomes "active" (visible)
+            // This is simplified; a more robust solution might use Intersection Observer
+            // For now, we'll re-translate when a nav button is clicked if an "other" lang is selected.
+        });
+        
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        async function callGeminiApi(prompt, isTranslationCall = false) {
+            let loadingTextKey = isTranslationCall ? "loading_text" : "loading_text"; // Use generic for now
+            loadingIndicator.innerHTML = `<span data-translate-key="${loadingTextKey}">${translations[currentLanguage]?.[loadingTextKey] || translations.en[loadingTextKey]}</span>`;
+             if ((currentLanguage !== 'en' && currentLanguage !== 'fr') && loadingIndicator.querySelector('span')) { // Translate loading text if current page is 'other'
+                 await translateElementTextWithGemini(loadingIndicator.querySelector('span'), currentLanguage, 'en');
+            }
+            loadingIndicator.style.display = 'block';
+            if (!isTranslationCall) {
+                aiDisclaimer.style.display = 'none';
+                const aiResponseArea = document.getElementById('aiResponseArea');
+                if(aiResponseArea) aiResponseArea.style.display = 'none';
+            }
+
+            let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+            const payload = { contents: chatHistory };
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+            
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (!response.ok) {
+                    const errorBody = await response.text();
+                    console.error("API Error Body:", errorBody);
+                    throw new Error(`API request failed with status ${response.status}`);
+                }
+                const result = await response.json();
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    return result.candidates[0].content.parts[0].text;
+                } else {
+                    console.error("Unexpected response structure from Gemini API:", result);
+                    const errorMsgKey = isTranslationCall ? "loading_text" : "qna_gemini_error_unexpected_response";
+                    return translations[currentLanguage]?.[errorMsgKey] || translations.en[errorMsgKey];
+                }
+            } catch (error) {
+                console.error("Error calling Gemini API:", error);
+                const errorMsgKey = isTranslationCall ? "loading_text" : "qna_gemini_error_connect";
+                let baseMsg = translations[currentLanguage]?.[errorMsgKey] || translations.en[errorMsgKey];
+                return baseMsg.includes("{error_message}") ? baseMsg.replace("{error_message}", error.message) : baseMsg;
+            } finally {
+                if (!isTranslationCall || !document.querySelector('.content-section.active [data-translate-key]')) {
+                   loadingIndicator.style.display = 'none';
+                }
+            }
+        }
+        
+        const askAIButton = document.getElementById('askAIButton');
+        const userQuestionInput = document.getElementById('userQuestion');
+        const aiResponseArea = document.getElementById('aiResponseArea');
+
+        if (askAIButton) {
+            askAIButton.addEventListener('click', async () => {
+                const question = userQuestionInput.value.trim();
+                if (!question) {
+                    aiResponseArea.textContent = "Please enter a question.";
+                    aiResponseArea.style.display = 'block';
+                    return;
+                }
+
+                const promptLang = (languageSelector.value === 'en' || languageSelector.value === 'fr') ? languageSelector.value : 'en';
+                let basePrompt = translations[promptLang]?.qna_ai_prompt_base || translations.en.qna_ai_prompt_base;
+                const prompt = basePrompt.replace("{user_question}", question);
+
+                let answer = await callGeminiApi(prompt);
+
+                // If current page language is an "other" language, translate the AI's answer
+                const currentSelectedLang = languageSelector.value;
+                if (currentSelectedLang !== 'en' && currentSelectedLang !== 'fr' && answer && !answer.startsWith("Error:") && !answer.startsWith("Sorry,")) {
+                    const translationPrompt = `Translate the following text to ${otherLanguageOptions.find(l=>l.code === currentSelectedLang)?.name || currentSelectedLang}. Respond with only the translation: "${answer}"`;
+                    answer = await callGeminiApi(translationPrompt, true);
+                }
+                
+                aiResponseArea.innerHTML = answer.replace(/\n/g, '<br>');
+                aiResponseArea.style.display = 'block';
+                aiDisclaimer.style.display = 'block';
+            });
+        }
+        
+        // Initial setup
+        populateLanguageSelector();
+        updateTextContent(currentLanguage);
+    });
+</script>
 </body>
 </html>
+
